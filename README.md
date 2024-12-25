@@ -20,3 +20,23 @@ Centralized error handling with custom error classes.
 Environment Configuration
 
 Configuration is loaded dynamically using dotenv.
+
+src/
+├── app.ts                  # Main application setup
+├── config/
+│   └── index.ts            # Application configuration
+├── middlewares/            # Custom middleware
+│   ├── auth.ts             # Authentication middleware
+│   ├── globalErrorHandler.ts  # Centralized error handling middleware
+│   └── validateRequest.ts  # Request validation middleware
+├── module/                 # Application modules
+│   ├── admin/              # Admin module
+│   ├── auth/               # Authentication module
+│   ├── blog/               # Blog module
+│   └── user/               # User module
+├── utils/                  # Utility functions
+│   ├── AppError.ts         # Custom error class
+│   ├── catchAsync.ts       # Wrapper for async functions
+│   └── sendResponse.ts     # Utility for standardized responses
+└── server.ts               # Application entry point
+
