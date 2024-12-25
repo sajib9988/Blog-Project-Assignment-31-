@@ -1,4 +1,4 @@
-import { FilterQuery, Query } from 'mongoose';
+import { FilterQuery, ObjectId, Query } from 'mongoose';
 
 class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
@@ -25,21 +25,44 @@ class QueryBuilder<T> {
     return this;
   }
 
+  // filter() {
+  //   const queryObj = { ...this.query };
+  //   const excludedKeys = ['search', 'page', 'limit', 'sortOrder', 'sortBy', 'fields'];
+  //   excludedKeys.forEach((key) => delete queryObj[key]);
+  
+  //   // Custom filter logic
+  //   if (queryObj.filter) {
+  //     queryObj._id = queryObj.filter; // Example: Using `filter` to match `_id`
+  //     delete queryObj.filter;
+  //   }
+  
+  //   this.modelQuery = this.modelQuery.find(queryObj);
+  //   return this;
+  // }
   filter() {
-    const queryObj = { ...this.query };
-    const excludedKeys = ['search', 'page', 'limit', 'sortOrder', 'sortBy', 'fields'];
-    excludedKeys.forEach((key) => delete queryObj[key]);
+    const queryObj = { ...this.query }
+    const excludingImportant = [
+      'search',
+      'sortOrder',
+      'sortBy'
+    ]
+    
+    // jesob field amdr filtering a drkr nei sesob baad dicchi
+    excludingImportant.forEach((key) => delete queryObj[key])
   
-    // Custom filter logic
-    if (queryObj.filter) {
-      queryObj._id = queryObj.filter; // Example: Using `filter` to match `_id`
-      delete queryObj.filter;
-    }
-  
-    this.modelQuery = this.modelQuery.find(queryObj);
+    console.log(queryObj,excludingImportant,"queryObj")
+     if(queryObj?.filter){
+
+       this.modelQuery = this.modelQuery.find({author:{_id:(queryObj.filter as ObjectId)}});
+     }
+
     return this;
   }
-    paginate() {
+
+  
+  
+  
+  paginate() {
     const page = Math.max(1, Number(this.query.page) || 1);
     const limit = Math.max(1, Number(this.query.limit) || 10);
     const skip = (page - 1) * limit;
