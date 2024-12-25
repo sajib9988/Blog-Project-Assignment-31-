@@ -1,4 +1,4 @@
-                                                               Blog Project Backend Assignment 3
+                                                               # Blog Project Backend Assignment 3
 This is a backend project for a blog management system. It is built using Node.js, Express.js, and MongoDB, with TypeScript for enhanced type safety. The application provides APIs for user authentication, blog management, and administrative functionalities.
 
 Features
